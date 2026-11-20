@@ -1,8 +1,8 @@
 // Network-first per i file dell'app (così gli aggiornamenti arrivano), cache come riserva offline.
-const CACHE = "buste-v1";
+const CACHE = "buste-v3";
 const ASSETS = ["./", "./index.html", "./config.js", "./data.js", "./manifest.webmanifest",
   "./icons/icon-180.png", "./icons/icon-192.png", "./icons/icon-512.png",
-  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"];
+  "./vendor/supabase.js"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).catch(() => {})); self.skipWaiting(); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k))))); self.clients.claim(); });
 self.addEventListener("fetch", e => {

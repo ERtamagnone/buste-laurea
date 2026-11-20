@@ -223,7 +223,18 @@
     $("#lGo").onclick = async () => {
       $("#lErr").textContent = "";
       try { await DB.signIn($("#lEmail").value.trim(), $("#lPass").value); enter(); }
-      catch (e) { $("#lErr").textContent = "Accesso non riuscito: controlla email e password."; }
+      catch (e) { $("#lErr").textContent = /confirm/i.test(e.message || "") ? "Devi prima confermare l'email: apri il link che ti è arrivato." : "Accesso non riuscito: controlla email e password."; }
+    };
+    $("#lSign").onclick = async () => {
+      const email = $("#lEmail").value.trim(), pass = $("#lPass").value;
+      $("#lErr").style.color = ""; $("#lErr").textContent = "";
+      if (!email || pass.length < 8) { $("#lErr").textContent = "Inserisci email e una password di almeno 8 caratteri."; return; }
+      try {
+        const d = await DB.signUp(email, pass);
+        if (d.session) return enter();
+        $("#lErr").style.color = "var(--ok)";
+        $("#lErr").textContent = "Fatto! Apri l'email di conferma che ti è arrivata, poi torna qui ed entra.";
+      } catch (e) { $("#lErr").textContent = "Registrazione non riuscita: " + (e.message || e); }
     };
   }
   boot();

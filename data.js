@@ -126,6 +126,12 @@
     },
     async session() { if (!sb) return null; const { data } = await sb.auth.getSession(); return data.session; },
     async signIn(email, password) { need(); const { error } = await sb.auth.signInWithPassword({ email, password }); if (error) throw error; },
+    async signUp(email, password) {
+      need();
+      const { data, error } = await sb.auth.signUp({ email, password, options: { emailRedirectTo: location.href.split("?")[0].split("#")[0] } });
+      if (error) throw error;
+      return data;
+    },
     async signOut() { if (sb) await sb.auth.signOut(); }
   };
   window.DB = DB;

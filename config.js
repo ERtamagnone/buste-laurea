@@ -6,8 +6,8 @@
    Se li lasci vuoti l'app funziona in "modalità locale" (solo su questo dispositivo).
    ========================================================= */
 window.APP_SETTINGS = {
-  SUPABASE_URL: "",
-  SUPABASE_KEY: ""
+  SUPABASE_URL: "https://ppujxwxnfgvlkwhnvgxd.supabase.co",
+  SUPABASE_KEY: "sb_publishable_gEYlwJ7_R1rbBRuG5UzzBw_Yzv1dXoJ"
 };
 
 /* =========================================================
